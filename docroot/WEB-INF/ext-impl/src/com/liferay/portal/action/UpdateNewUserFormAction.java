@@ -100,6 +100,10 @@ public class UpdateNewUserFormAction extends Action{
 		storeValue(getColumnId(tableId, "Grant Number"), grant, classNameId, tableId, classPk);
 		storeValue(getColumnId(tableId, "NewUserFormComplete"), "true", classNameId, tableId, classPk);
 
+		newUser.setPasswordReset(false);
+		newUser.setReminderQueryQuestion("generic-question");
+		newUser.setReminderQueryAnswer("generic-answer");
+		
 		System.out.println("done Submitting form");
 //		return "common.referer_js.jsp";
 		return mapping.findForward(ActionConstants.COMMON_REFERER_JSP);

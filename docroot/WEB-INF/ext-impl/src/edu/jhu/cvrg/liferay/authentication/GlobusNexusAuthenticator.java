@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.globusonline.nexus.exception.InvalidCredentialsException;
 
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -42,7 +43,6 @@ public class GlobusNexusAuthenticator implements Authenticator{
 	
 	static org.apache.log4j.Logger logger = Logger.getLogger(GlobusNexusAuthenticator.class);
 
-	@Override
 	public int authenticateByEmailAddress(long companyId, String emailAddress,
 			String password, Map<String, String[]> headerMap,
 			Map<String, String[]> parameterMap) throws AuthException {
@@ -64,7 +64,6 @@ public class GlobusNexusAuthenticator implements Authenticator{
 		}
 	}
 
-	@Override
 	public int authenticateByScreenName(long companyId, String screenName, String password, Map<String, 
 			String[]> headerMap, Map<String, String[]> parameterMap) throws AuthException {
 		
@@ -93,12 +92,14 @@ public class GlobusNexusAuthenticator implements Authenticator{
 		}
 			
 		String[] args = { screenName, password, url, community };
-		
+
 		if (authenticator.authenticate(args, AuthenticationMethod.GLOBUS_REST)) {
 			try {
-				user = UserLocalServiceUtil.getUserByScreenName(companyId, screenName);
-			} catch (NoSuchUserException e){
-				user = createNewUser(authenticator.getUserEmail(), screenName, authenticator.getUserFullname().split(" "), companyId);
+				user = UserLocalServiceUtil.getUserByScreenName(companyId,
+						screenName);
+			} catch (NoSuchUserException e) {
+				user = createNewUser(authenticator.getUserEmail(), screenName,
+						authenticator.getUserFullname().split(" "), companyId);
 			} catch (PortalException e) {
 				e.printStackTrace();
 			} catch (SystemException e) {
@@ -106,14 +107,13 @@ public class GlobusNexusAuthenticator implements Authenticator{
 			}
 			logger.info("Authentication successful.");
 			return SUCCESS;
-		}
-		else{
+		} else {
 			logger.info("Authentication failed.");
 			return FAILURE;
 		}
+
 	}
 
-	@Override
 	public int authenticateByUserId(long companyId, long userId,
 			String password, Map<String, String[]> headerMap,
 			Map<String, String[]> parameterMap) throws AuthException {

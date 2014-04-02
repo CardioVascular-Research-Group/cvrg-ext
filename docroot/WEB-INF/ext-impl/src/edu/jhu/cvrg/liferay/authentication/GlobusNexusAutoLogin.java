@@ -25,7 +25,6 @@ import com.liferay.portal.security.auth.AutoLoginException;
 
 public class GlobusNexusAutoLogin implements AutoLogin{
 
-	@Override
 	public String[] login(HttpServletRequest request,
 			HttpServletResponse response) throws AutoLoginException {
 		return null;

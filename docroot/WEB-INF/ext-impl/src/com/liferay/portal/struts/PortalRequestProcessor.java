@@ -801,10 +801,10 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 			}
 
 			// Authenticated users must have a current password
-
-			if ((user != null) && user.isPasswordReset()) {
-				return _PATH_PORTAL_UPDATE_PASSWORD;
-			}
+//CRJ Local Passwords not needed.
+//			if ((user != null) && user.isPasswordReset()) {
+//				return _PATH_PORTAL_UPDATE_PASSWORD;
+//			}
 
 			// Authenticated users must have an email address
 
@@ -998,17 +998,15 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 		boolean result = false;
 			if(user.getExpandoBridge().getAttribute("NewUserFormComplete") != null){
 				result = (Boolean) user.getExpandoBridge().getAttribute("NewUserFormComplete");
-				System.out.println("New User Form complete:" + result);
-			}else{System.out.println("New User Form Complete variable is null.");}
+			}
 		return result;
 	}
 	
 	private boolean newUserFormRequired(User user){
-		System.out.println("Checking for New User Form required.");
+
 		boolean result = true;
 		if(user.getExpandoBridge().getAttribute("NewUserFormRequired") != null){
 			result = (Boolean) user.getExpandoBridge().getAttribute("NewUserFormRequired");
-			System.out.println("Result: " + result);
 		}
 		return result;
 	}

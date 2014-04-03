@@ -8,7 +8,7 @@ public class CVRGStartupAction extends AppStartupAction{
 
 	@Override
 	public void run(String[] ids) {
-		
+		System.out.println("Startup Action....********************************");
 		UserFieldCreator.createCustomFields();
 		
 	}

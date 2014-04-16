@@ -76,28 +76,25 @@ public class GlobusNexusAuthenticator implements Authenticator{
 
 		try {
 			url = PropsValues.GLOBUS_LINK;
+			logger.info("Using Globus URL " + PropsValues.GLOBUS_LINK);
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.warn("No Globus URL found.  Relying on default.");
+			logger.warn("Unable to load Globus URL.  Relying on authenticator package default.");
 		}
 		
 		try {
 			community = PropsValues.GLOBUS_COMMUNITY;
 			logger.info("Using Globus community " + community);
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.warn("No Globus community found.  Relying on default.");
+			logger.warn("Unable to load Globus community.  Relying on authenticator package default.");
 		}
 			
 		String[] args = { screenName, password, url, community };
 
 		if (authenticator.authenticate(args, AuthenticationMethod.GLOBUS_REST)) {
 			try {
-				user = UserLocalServiceUtil.getUserByScreenName(companyId,
-						screenName);
+				user = UserLocalServiceUtil.getUserByScreenName(companyId, screenName);
 			} catch (NoSuchUserException e) {
-				user = createNewUser(authenticator.getUserEmail(), screenName,
-						authenticator.getUserFullname().split(" "), companyId);
+				user = createNewUser(authenticator.getUserEmail(), screenName, authenticator.getUserFullname().split(" "), companyId);
 			} catch (PortalException e) {
 				e.printStackTrace();
 			} catch (SystemException e) {
@@ -109,7 +106,6 @@ public class GlobusNexusAuthenticator implements Authenticator{
 			logger.info("Authentication failed.");
 			return FAILURE;
 		}
-
 	}
 
 	public int authenticateByUserId(long companyId, long userId,

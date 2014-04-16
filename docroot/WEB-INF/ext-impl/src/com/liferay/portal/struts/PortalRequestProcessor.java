@@ -1027,11 +1027,9 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 
 	private static String _PATH_PORTAL_ERROR = "/portal/error";
 
-	private static String _PATH_PORTAL_EXPIRE_SESSION =
-		"/portal/expire_session";
+	private static String _PATH_PORTAL_EXPIRE_SESSION =	"/portal/expire_session";
 
-	private static String _PATH_PORTAL_EXTEND_SESSION =
-		"/portal/extend_session";
+	private static String _PATH_PORTAL_EXTEND_SESSION =	"/portal/extend_session";
 
 	private static String _PATH_PORTAL_FLASH = "/portal/flash";
 
@@ -1047,8 +1045,7 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 
 	private static String _PATH_PORTAL_PROTECTED = "/portal/protected";
 
-	private static String _PATH_PORTAL_RENDER_PORTLET =
-		"/portal/render_portlet";
+	private static String _PATH_PORTAL_RENDER_PORTLET =	"/portal/render_portlet";
 
 	private static String _PATH_PORTAL_SETUP_WIZARD = "/portal/setup_wizard";
 
@@ -1056,20 +1053,15 @@ public class PortalRequestProcessor extends TilesRequestProcessor {
 
 	private static String _PATH_PORTAL_TERMS_OF_USE = "/portal/terms_of_use";
 
-	private static String _PATH_PORTAL_UPDATE_EMAIL_ADDRESS =
-		"/portal/update_email_address";
+	private static String _PATH_PORTAL_UPDATE_EMAIL_ADDRESS = "/portal/update_email_address";
 
-	private static String _PATH_PORTAL_UPDATE_PASSWORD =
-		"/portal/update_password";
+	private static String _PATH_PORTAL_UPDATE_PASSWORD = "/portal/update_password";
 
-	private static String _PATH_PORTAL_UPDATE_REMINDER_QUERY =
-		"/portal/update_reminder_query";
+	private static String _PATH_PORTAL_UPDATE_REMINDER_QUERY = "/portal/update_reminder_query";
 
-	private static String _PATH_PORTAL_UPDATE_TERMS_OF_USE =
-		"/portal/update_terms_of_use";
+	private static String _PATH_PORTAL_UPDATE_TERMS_OF_USE = "/portal/update_terms_of_use";
 
-	private static String _PATH_PORTAL_VERIFY_EMAIL_ADDRESS =
-		"/portal/verify_email_address";
+	private static String _PATH_PORTAL_VERIFY_EMAIL_ADDRESS = "/portal/verify_email_address";
 	
 	//CRJ 7/11/13 JHU
 	private static String _PATH_PORTAL_NEW_USER_FORM = "/portal/new_user_form";

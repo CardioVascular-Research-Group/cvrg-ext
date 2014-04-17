@@ -1,5 +1,7 @@
 package edu.jhu.cvrg.utilities.setup;
 
+import org.apache.log4j.Logger;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -27,12 +29,13 @@ import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
+import edu.jhu.cvrg.utilities.authentication.GlobusRESTAuthenticator;
+
 public class UserFieldCreator {
 
+	static org.apache.log4j.Logger logger = Logger.getLogger(UserFieldCreator.class);
+
 	public static void createCustomFields() {
-
-//		long companyId = PortalUtil.getDefaultCompanyId();
-
 
 		try {
 			String webId = PropsUtil.get(PropsKeys.COMPANY_DEFAULT_WEB_ID);
@@ -48,7 +51,7 @@ public class UserFieldCreator {
 						.addDefaultTable(companyId, User.class.getName());
 			}
 			
-			System.out.println("Creating custom user fields using companyId " + companyId);
+			logger.info("Creating custom user fields using companyId " + companyId);
 
 			addCustomAttribute(companyId, userExpandoTable, "Department",
 					ExpandoColumnConstants.STRING, null);
@@ -63,7 +66,7 @@ public class UserFieldCreator {
 			addCustomAttribute(companyId, userExpandoTable,
 					"NewUserFormRequired", ExpandoColumnConstants.BOOLEAN, true);
 			
-			System.out.println("User fields created.");
+			logger.info("User fields created.");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,8 +85,8 @@ public class UserFieldCreator {
 		if(column == null){
 			try {
 				column = ExpandoColumnLocalServiceUtil.addColumn(userExpandoTable.getTableId(), attributeName, type, defaultValue);
-				System.out.println("Added column " + column.getName() + " on table " + column.getTableId());
-				System.out.println("Setting permissions on " + column.getName());
+				logger.info("Added column " + column.getName() + " on table " + column.getTableId());
+				logger.info("Setting permissions on " + column.getName());
 				setAttributePermissions(companyId, attributeName);
 			} catch (PortalException e) {
 				e.printStackTrace();
@@ -104,7 +107,7 @@ public class UserFieldCreator {
 		ExpandoColumn column = ExpandoColumnLocalServiceUtil.getColumn(companyId, expandoBridge.getClassName(),
 				ExpandoTableConstants.DEFAULT_TABLE_NAME, attributeName);
 		
-		System.out.println("Adding role " + userRole.getName() + " to column " + column.getName() + " on table " + column.getTableId());
+		logger.info("Adding role " + userRole.getName() + " to column " + column.getName() + " on table " + column.getTableId());
 
 		
 		// Give ordinary users read / write power of the new attributes

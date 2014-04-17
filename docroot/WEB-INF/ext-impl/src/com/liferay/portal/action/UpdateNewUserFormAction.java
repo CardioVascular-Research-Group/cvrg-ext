@@ -22,6 +22,7 @@ limitations under the License.
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -45,6 +46,8 @@ import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoValueLocalServiceUtil;
 
+import edu.jhu.cvrg.utilities.authentication.GlobusRESTAuthenticator;
+
 public class UpdateNewUserFormAction extends Action{
 	
 	protected String institution;
@@ -58,11 +61,7 @@ public class UpdateNewUserFormAction extends Action{
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)  
 			throws Exception{
-//	@Override
-//	public String execute(StrutsAction originalStrutsAction, HttpServletRequest request, HttpServletResponse response)
-//		throws Exception {
-		System.out.println("Submitting form");
-	
+
 		long userId = PortalUtil.getUserId(request);
 		User newUser = UserLocalServiceUtil.getUser(userId);
 		
@@ -79,11 +78,8 @@ public class UpdateNewUserFormAction extends Action{
 		catch(NewUserMissingFieldException e){
 			SessionErrors.add(request, e.getClass().getName());
 			return mapping.findForward("portal.new_user_form");		
-//			return "portal/new_user_form";
 		}
-		
-		System.out.println("Updating user fields...");
-		
+
 		newUser.getExpandoBridge().setAttribute("Institution", institution);
 		newUser.getExpandoBridge().setAttribute("Department", department);
 		newUser.getExpandoBridge().setAttribute("Reason", reason);
@@ -103,15 +99,12 @@ public class UpdateNewUserFormAction extends Action{
 		newUser.setPasswordReset(false);
 		newUser.setReminderQueryQuestion("generic-question");
 		newUser.setReminderQueryAnswer("generic-answer");
-		
-		System.out.println("done Submitting form");
-//		return "common.referer_js.jsp";
+
 		return mapping.findForward(ActionConstants.COMMON_REFERER_JSP);
 	}
 	
 	private void storeValue(long columnId, String value, long classNameId, long tableId, long classPK){
 		ExpandoValue expandoValue = null;
-		System.out.println("Storing value");
 		try {
 			expandoValue = ExpandoValueLocalServiceUtil.addValue(classNameId, tableId, columnId, classPK, value);
 		} catch (PortalException e) {
@@ -119,7 +112,6 @@ public class UpdateNewUserFormAction extends Action{
 		} catch (SystemException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Done Storing value");
 	}
 	
 	private long getColumnId(long tableId, String columnName){
@@ -142,10 +134,8 @@ public class UpdateNewUserFormAction extends Action{
 			table = ExpandoTableLocalServiceUtil.getTable(companyId, User.class.getName(), "CUSTOM_FIELDS");
 			classNameId = table.getClassNameId();
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return classNameId;
@@ -159,10 +149,8 @@ public class UpdateNewUserFormAction extends Action{
 			table = ExpandoTableLocalServiceUtil.getTable(companyId, User.class.getName(), "CUSTOM_FIELDS");
 			tableId = table.getTableId();
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return tableId;

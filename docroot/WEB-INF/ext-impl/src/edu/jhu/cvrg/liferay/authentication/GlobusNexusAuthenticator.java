@@ -65,7 +65,17 @@ public class GlobusNexusAuthenticator implements Authenticator{
 	public int authenticateByScreenName(long companyId, String screenName, String password, Map<String, 
 			String[]> headerMap, Map<String, String[]> parameterMap) throws AuthException {
 		
-		logger.info("Authenticating by screenName");
+		logger.info("Authenticating by screenName for " + screenName + "," + password);
+
+		if(isDefaultAdmin(screenName, password)){
+			logger.info("Administrator user " + screenName + " identified.");
+			return SUCCESS;
+		}
+		
+//		if(isServiceUser(screenName, password)){
+//			logger.info("Axis2 user " + screenName + " identified.");
+//			return SUCCESS;
+//		}
 
 		MainAuthenticator authenticator = new MainAuthenticator();
 		
@@ -89,8 +99,7 @@ public class GlobusNexusAuthenticator implements Authenticator{
 		}
 			
 		String[] args = { screenName, password, url, community };
-
-		if (authenticator.authenticate(args, AuthenticationMethod.GLOBUS_REST)) {
+			if (authenticator.authenticate(args, AuthenticationMethod.GLOBUS_REST)) {
 			try {
 				user = UserLocalServiceUtil.getUserByScreenName(companyId, screenName);
 			} catch (NoSuchUserException e) {
@@ -159,5 +168,31 @@ public class GlobusNexusAuthenticator implements Authenticator{
 			e.printStackTrace();
 		}		
 		return newUser;
+	}
+	
+	private boolean isServiceUser(String screenName, String password){
+		
+		ServiceProperties serviceProperties = ServiceProperties.getInstance();
+		
+		if(serviceProperties.getProperty("liferay.ws.user").equals(screenName) &&
+			serviceProperties.getProperty("liferay.ws.password").equals(password)){
+				return true;
+		}
+		else
+			return false;
+	}
+	
+	private boolean isDefaultAdmin(String screenName, String password){
+
+		logger.info("Defaults are " + PropsValues.DEFAULT_ADMIN_SCREEN_NAME + " and " + PropsValues.DEFAULT_ADMIN_PASSWORD);
+				
+		if(PropsValues.DEFAULT_ADMIN_SCREEN_NAME.equals(screenName) &&
+				PropsValues.DEFAULT_ADMIN_PASSWORD.equals(password)){
+			logger.info("Match found.");
+			return true;
+		}
+		else{logger.info("Match not found.  HAHAHAHAHA YOU STUPID.");
+			return false;
+		}
 	}
 }

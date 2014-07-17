@@ -15,10 +15,6 @@ import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.service.ResourcePermissionLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.expando.DuplicateColumnNameException;
-import com.liferay.portlet.expando.DuplicateTableNameException;
-import com.liferay.portlet.expando.NoSuchColumnException;
 import com.liferay.portlet.expando.NoSuchTableException;
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.model.ExpandoColumn;
@@ -29,18 +25,13 @@ import com.liferay.portlet.expando.service.ExpandoColumnLocalServiceUtil;
 import com.liferay.portlet.expando.service.ExpandoTableLocalServiceUtil;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
-import edu.jhu.cvrg.utilities.authentication.GlobusRESTAuthenticator;
-
 public class UserFieldCreator {
 
 	static org.apache.log4j.Logger logger = Logger.getLogger(UserFieldCreator.class);
 
-	public static void createCustomFields() {
+	public static void createCustomFields(long companyId) {
 
 		try {
-			String webId = PropsUtil.get(PropsKeys.COMPANY_DEFAULT_WEB_ID);
-			Company company = CompanyLocalServiceUtil.getCompanyByWebId(webId);
-			long companyId = company.getCompanyId();
 			ExpandoTable userExpandoTable = null;
 
 			try {

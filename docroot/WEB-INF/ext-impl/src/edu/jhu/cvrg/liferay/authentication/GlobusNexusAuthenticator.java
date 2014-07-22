@@ -72,10 +72,10 @@ public class GlobusNexusAuthenticator implements Authenticator{
 			return SUCCESS;
 		}
 		
-//		if(isServiceUser(screenName, password)){
-//			logger.info("Axis2 user " + screenName + " identified.");
-//			return SUCCESS;
-//		}
+		if(isServiceUser(screenName, password)){
+			logger.info("Axis2 user " + screenName + " identified.");
+			return SUCCESS;
+		}
 
 		MainAuthenticator authenticator = new MainAuthenticator();
 		

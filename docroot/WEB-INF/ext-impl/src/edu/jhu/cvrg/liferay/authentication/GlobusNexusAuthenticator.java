@@ -65,7 +65,7 @@ public class GlobusNexusAuthenticator implements Authenticator{
 	public int authenticateByScreenName(long companyId, String screenName, String password, Map<String, 
 			String[]> headerMap, Map<String, String[]> parameterMap) throws AuthException {
 		
-		logger.info("Authenticating by screenName for " + screenName + "," + password);
+		logger.info("Authenticating by screenName for " + screenName);
 
 		if(isDefaultAdmin(screenName, password)){
 			logger.info("Administrator user " + screenName + " identified.");
@@ -79,8 +79,6 @@ public class GlobusNexusAuthenticator implements Authenticator{
 
 		MainAuthenticator authenticator = new MainAuthenticator();
 		
-		@SuppressWarnings("unused")
-		User user = null;
 		String url = "";
 		String community = "";
 
@@ -99,11 +97,11 @@ public class GlobusNexusAuthenticator implements Authenticator{
 		}
 			
 		String[] args = { screenName, password, url, community };
-			if (authenticator.authenticate(args, AuthenticationMethod.GLOBUS_REST)) {
+		if (authenticator.authenticate(args, AuthenticationMethod.GLOBUS_REST)) {
 			try {
-				user = UserLocalServiceUtil.getUserByScreenName(companyId, screenName);
+				UserLocalServiceUtil.getUserByScreenName(companyId, screenName);
 			} catch (NoSuchUserException e) {
-				user = createNewUser(authenticator.getUserEmail(), screenName, authenticator.getUserFullname().split(" "), companyId);
+				createNewUser(authenticator.getUserEmail(), screenName, authenticator.getUserFullname().split(" "), companyId);
 			} catch (PortalException e) {
 				e.printStackTrace();
 			} catch (SystemException e) {
@@ -162,7 +160,6 @@ public class GlobusNexusAuthenticator implements Authenticator{
 			RoleLocalServiceUtil.setUserRoles(newUser.getUserId(), roles);
 		
 		} catch (PortalException e) {
-
 			e.printStackTrace();
 		} catch (SystemException e) { 
 			e.printStackTrace();
@@ -174,25 +171,14 @@ public class GlobusNexusAuthenticator implements Authenticator{
 		
 		ServiceProperties serviceProperties = ServiceProperties.getInstance();
 		
-		if(serviceProperties.getProperty("liferay.ws.user").equals(screenName) &&
-			serviceProperties.getProperty("liferay.ws.password").equals(password)){
-				return true;
-		}
-		else
-			return false;
+		return (serviceProperties.getProperty("liferay.ws.user").equals(screenName) &&
+				serviceProperties.getProperty("liferay.ws.password").equals(password)); 
+		
 	}
 	
 	private boolean isDefaultAdmin(String screenName, String password){
 
-		logger.info("Defaults are " + PropsValues.DEFAULT_ADMIN_SCREEN_NAME + " and " + PropsValues.DEFAULT_ADMIN_PASSWORD);
-				
-		if(PropsValues.DEFAULT_ADMIN_SCREEN_NAME.equals(screenName) &&
-				PropsValues.DEFAULT_ADMIN_PASSWORD.equals(password)){
-			logger.info("Match found.");
-			return true;
-		}
-		else{logger.info("Match not found.  HAHAHAHAHA YOU STUPID.");
-			return false;
-		}
+		return (PropsValues.DEFAULT_ADMIN_SCREEN_NAME.equals(screenName) && 
+				PropsValues.DEFAULT_ADMIN_PASSWORD.equals(password));
 	}
 }

@@ -4,7 +4,7 @@
 <project name="cvrg-ext" basedir="." default="deploy">
 	<import file="../build-common-ext.xml" />
 
-	<path id="utility.classpath">
+	<path id="plugin.classpath">
 		<fileset dir="/opt/liferay/utility-jars/">
 			<include name="cvrg-authenticator.jar"/>
 			<include name="java-nexus-client.jar"/>

@@ -65,17 +65,22 @@ public class GlobusNexusAuthenticator implements Authenticator{
 	public int authenticateByScreenName(long companyId, String screenName, String password, Map<String, 
 			String[]> headerMap, Map<String, String[]> parameterMap) throws AuthException {
 		
-		logger.info("Authenticating by screenName for " + screenName + "," + password);
+		logger.info("Authenticating by screenName for " + screenName);
 
 		if(isDefaultAdmin(screenName, password)){
 			logger.info("Administrator user " + screenName + " identified.");
 			return SUCCESS;
 		}
+		else{
+			logger.info("Trying Axis2 user...");
+		}
 		
-//		if(isServiceUser(screenName, password)){
-//			logger.info("Axis2 user " + screenName + " identified.");
-//			return SUCCESS;
-//		}
+		if(isServiceUser(screenName, password)){
+			logger.info("Axis2 user " + screenName + " identified.");
+			return SUCCESS;
+		}
+		
+		logger.info("User is not Admin or Service.  Proceeding with Globus Online authentication.");
 
 		MainAuthenticator authenticator = new MainAuthenticator();
 		
@@ -172,27 +177,41 @@ public class GlobusNexusAuthenticator implements Authenticator{
 	
 	private boolean isServiceUser(String screenName, String password){
 		
-		ServiceProperties serviceProperties = ServiceProperties.getInstance();
+		try{
+			ServiceProperties serviceProperties = ServiceProperties.getInstance();
 		
-		if(serviceProperties.getProperty("liferay.ws.user").equals(screenName) &&
-			serviceProperties.getProperty("liferay.ws.password").equals(password)){
-				return true;
-		}
-		else
+			if(serviceProperties.getProperty("liferay.ws.user").equals(screenName) &&
+					serviceProperties.getProperty("liferay.ws.password").equals(password)){
+				logger.info("Service User found.");
+					return true;
+			}
+			else{
+				logger.info("Service User not found.");
+				return false;
+			}
+		} catch (Exception e){
+			logger.info("Service User config not found.");
 			return false;
+		}
 	}
 	
 	private boolean isDefaultAdmin(String screenName, String password){
 
 		logger.info("Defaults are " + PropsValues.DEFAULT_ADMIN_SCREEN_NAME + " and " + PropsValues.DEFAULT_ADMIN_PASSWORD);
-				
-		if(PropsValues.DEFAULT_ADMIN_SCREEN_NAME.equals(screenName) &&
-				PropsValues.DEFAULT_ADMIN_PASSWORD.equals(password)){
-			logger.info("Match found.");
-			return true;
-		}
-		else{logger.info("Match not found.  HAHAHAHAHA YOU STUPID.");
+			
+		try{
+			if(PropsValues.DEFAULT_ADMIN_SCREEN_NAME.equals(screenName) &&
+					PropsValues.DEFAULT_ADMIN_PASSWORD.equals(password)){
+				logger.info("Default Admin match found.");
+				return true;
+			}
+			else {
+				logger.info("Default Admin match not found.");
+				return false;
+			}
+		} catch (Exception e){
+			logger.info("Admin User config not found.");
 			return false;
-		}
+		}	
 	}
 }

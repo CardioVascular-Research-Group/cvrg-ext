@@ -11,6 +11,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
+import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 
 import edu.jhu.cvrg.utilities.setup.UserFieldCreator;
@@ -24,8 +25,10 @@ public class CVRGStartupAction extends AppStartupAction{
 		
 		String webId = PropsUtil.get(PropsKeys.COMPANY_DEFAULT_WEB_ID);
 		Company company = null;
+		long groupId = 0L;
 		try {
 			company = CompanyLocalServiceUtil.getCompanyByWebId(webId);
+			groupId = GroupLocalServiceUtil.getGroup(company.getCompanyId(), "Guest").getGroupId();
 		} catch (PortalException e) {
 			e.printStackTrace();
 		} catch (SystemException e) {
@@ -36,6 +39,8 @@ public class CVRGStartupAction extends AppStartupAction{
 		DefaultAdminCreator.createAdmin(companyId);
 		UserFieldCreator.createCustomFields(companyId);
 		disableTest(companyId);
+		
+		DocumentLibraryInitilizer.createWaveformFolder(companyId, groupId);
 	}
 	
 	private void disableTest(long companyId){

@@ -9,5 +9,8 @@
 			<forward name="portal.new_user_form" path="portal.new_user_form" />
 		</action>
 		
-	</action-mappings>
+		<action path="/portal/eureka/logout" type="com.liferay.portal.action.LogoutHookAction">
+			<forward name="portal.login" path="portlet.login.login" />
+		</action>
+    </action-mappings>
 </struts-config>

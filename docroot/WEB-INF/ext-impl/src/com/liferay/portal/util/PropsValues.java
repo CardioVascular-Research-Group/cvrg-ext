@@ -68,6 +68,7 @@ limitations under the License.
  */
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 
@@ -1734,6 +1735,8 @@ public class PropsValues {
 	public static final String GLOBUS_LINK = PropsUtil.get(PropsKeys.GLOBUS_LINK);
 	public static final String GLOBUS_COMMUNITY = PropsUtil.get(PropsKeys.GLOBUS_COMMUNITY);
 	public static final String GLOBUS_ACCOUNT_URL = PropsUtil.get(PropsKeys.GLOBUS_ACCOUNT_URL);
+	//CRJ 7/21/15 JHU
+	public static final String OPENTSDB_URL = PropsUtil.get(PropsKeys.OPENTSDB_URL);
 
 	static {
 		if (!LAYOUT_USER_PRIVATE_LAYOUTS_ENABLED) {

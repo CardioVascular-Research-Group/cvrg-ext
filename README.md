@@ -11,3 +11,10 @@ Reccommended installation steps:
 - Run the Maven build for cvrg-ext
 - Open the resulting .war file and edit the portal-ext.properties file to provide the necessary fields
 - Start the Liferay Portal
+
+Additional configuration settings added to portal by this ext:
+
+	globus.url for using Globus Nexus authentication
+	globus.community for Globus Nexus authentication 
+	globus.account.url for Globus Nexus authentication
+	opentsdb.url for setting up the OpenTSDB time series database for use with Waveform components

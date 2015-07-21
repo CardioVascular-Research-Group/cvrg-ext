@@ -2342,5 +2342,7 @@ public interface PropsKeys {
 	public static final String GLOBUS_LINK = "globus.url";
 	public static final String GLOBUS_COMMUNITY = "globus.community";
 	public static final String GLOBUS_ACCOUNT_URL = "globus.account.url";
-
+	
+	//CRJ 7/21/15 JHU
+	public static final String OPENTSDB_URL = "opentsdb.url";
 }

@@ -14,6 +14,7 @@
  */
 --%>
 
+<%@page import="edu.jhu.cvrg.liferay.authentication.GlobusOAuthAutoLogin"%>
 <%@ include file="/html/portlet/login/init.jsp" %>
 
 <c:choose>
@@ -34,6 +35,8 @@
 		<%
 		String redirect = ParamUtil.getString(request, "redirect");
 
+		GlobusOAuthAutoLogin.addRedirect(request.getSession().getId(), redirect);
+		
 		String login = LoginUtil.getLogin(request, "login", company);
 		String password = StringPool.BLANK;
 		boolean rememberMe = ParamUtil.getBoolean(request, "rememberMe");
@@ -136,7 +139,12 @@
 			If you do not yet have one, please follow <a href="<%= PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.GLOBUS_ACCOUNT_URL)%>">this link to the Globus Online website</a> and create an account there 
 			following their instructions.  Once that is complete, you may use your new Globus Online username and password 
 			to use this application.
-
+			
+			<% if(PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_ENABLED,PropsValues.GLOBUS_OAUTH_ENABLED)){ %>
+			
+				<a href="<%= GlobusOAuthAutoLogin.getGlobusOAuthURL(request).getAuthorizationUrl(null)%>"> Globus OAuth</a>
+				
+			<% }%>
 			<aui:button-row>
 				<aui:button type="submit" value="sign-in" />
 			</aui:button-row>

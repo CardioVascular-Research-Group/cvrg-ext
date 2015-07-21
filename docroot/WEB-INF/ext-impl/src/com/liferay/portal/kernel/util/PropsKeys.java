@@ -2343,4 +2343,9 @@ public interface PropsKeys {
 	public static final String GLOBUS_COMMUNITY = "globus.community";
 	public static final String GLOBUS_ACCOUNT_URL = "globus.account.url";
 
+	//AV 07/21/15 JHU
+	public static final String GLOBUS_OAUTH_ENABLED  = "globus.oauth.enabled";
+	public static final String GLOBUS_OAUTH_USER 	 = "globus.oauth.user";
+	public static final String GLOBUS_OAUTH_PASSWORD = "globus.oauth.password";
+	
 }

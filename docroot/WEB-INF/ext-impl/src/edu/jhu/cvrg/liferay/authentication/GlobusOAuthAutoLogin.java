@@ -120,7 +120,23 @@ public class GlobusOAuthAutoLogin implements AutoLogin{
     		long companyId = PortalUtil.getCompanyId(request);
 			provider.setKey(PrefsPropsUtil.getString(companyId, PropsKeys.GLOBUS_OAUTH_USER,PropsValues.GLOBUS_OAUTH_USER));
 			provider.setSecret(PrefsPropsUtil.getString(companyId, PropsKeys.GLOBUS_OAUTH_PASSWORD,PropsValues.GLOBUS_OAUTH_PASSWORD));
-			provider.setCallbackUrl("http://" + request.getServerName() +  (request.getServerPort() != 80 ? ":"+request.getServerPort() : "") + "/c/portal/login");
+			
+			StringBuilder url = new StringBuilder("http"); 
+			
+			if(request.isSecure()){
+				url.append('s');
+			}
+			
+			url.append("://");
+			url.append(request.getServerName());
+			
+			if(request.getServerPort() != 80 && request.getServerPort() != 443){
+				url.append(':').append(request.getServerPort());
+			}
+			
+			url.append("/c/portal/login");
+					
+			provider.setCallbackUrl(url.toString());
 			
 		} catch (SystemException e) {
 			logger.error("Error in Globus OAuth URL generation. Message = " + e.getMessage());

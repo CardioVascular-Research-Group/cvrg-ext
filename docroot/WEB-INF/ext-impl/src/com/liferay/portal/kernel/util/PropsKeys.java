@@ -2350,5 +2350,7 @@ public interface PropsKeys {
 	public static final String GLOBUS_OAUTH_ENABLED  = "globus.oauth.enabled";
 	public static final String GLOBUS_OAUTH_USER 	 = "globus.oauth.user";
 	public static final String GLOBUS_OAUTH_PASSWORD = "globus.oauth.password";
+	public static final String GLOBUS_OAUTH_AUTO_REDIRECT = "globus.oauth.auto.redirect";
+	public static final String GLOBUS_OAUTH_SHOW_LOGIN_FIELDS = "globus.oauth.show.login.field";
 
 }

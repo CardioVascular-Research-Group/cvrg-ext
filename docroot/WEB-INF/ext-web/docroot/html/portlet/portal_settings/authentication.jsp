@@ -70,7 +70,8 @@ String siteminderUserHeader = PrefsPropsUtil.getString(company.getCompanyId(), P
 boolean globusOAuthEnabled = PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_ENABLED, PropsValues.GLOBUS_OAUTH_ENABLED);
 String globusOAuthUser = PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_USER, PropsValues.GLOBUS_OAUTH_USER);
 String globusOAuthPassword = PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_PASSWORD, PropsValues.GLOBUS_OAUTH_PASSWORD);
-
+boolean globusOAuthAutoRedirect = PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_AUTO_REDIRECT, PropsValues.GLOBUS_OAUTH_AUTO_REDIRECT);
+boolean globusOAuthShowLoginFields = PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_SHOW_LOGIN_FIELDS, PropsValues.GLOBUS_OAUTH_SHOW_LOGIN_FIELDS);
 %>
 
 <liferay-ui:error-marker key="errorSection" value="authentication" />
@@ -228,6 +229,10 @@ String globusOAuthPassword = PrefsPropsUtil.getString(company.getCompanyId(), Pr
 			<aui:input cssClass="lfr-input-text-container" label="globus-user" name='<%= "settings--" + PropsKeys.GLOBUS_OAUTH_USER + "--" %>' type="text" value="<%= globusOAuthUser %>" />
 			
 			<aui:input cssClass="lfr-input-text-container" label="globus-password" name='<%= "settings--" + PropsKeys.GLOBUS_OAUTH_PASSWORD + "--" %>' type="text" value="<%= globusOAuthPassword %>" />
+			
+			<aui:input label="auto-redirect-to-globus" name='<%= "settings--" + PropsKeys.GLOBUS_OAUTH_AUTO_REDIRECT + "--" %>' type="checkbox" value="<%= globusOAuthAutoRedirect %>" />
+			
+			<aui:input label="show-login-fields" name='<%= "settings--" + PropsKeys.GLOBUS_OAUTH_SHOW_LOGIN_FIELDS + "--" %>' type="checkbox" value="<%= globusOAuthShowLoginFields %>" />
 		</aui:fieldset>
 	</liferay-ui:section>
 	

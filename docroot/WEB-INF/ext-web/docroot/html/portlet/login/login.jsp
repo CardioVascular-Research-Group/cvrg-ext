@@ -52,7 +52,13 @@
 			<portlet:param name="doActionAfterLogin" value="<%= portletName.equals(PortletKeys.FAST_LOGIN) ? Boolean.TRUE.toString() : Boolean.FALSE.toString() %>" />
 		</portlet:actionURL>
 
-		<aui:form action="<%= loginURL %>" autocomplete='<%= PropsValues.COMPANY_SECURITY_LOGIN_FORM_AUTOCOMPLETE ? "on" : "off" %>' method="post" name="fm">
+		<% 
+		boolean globusOAuthEnabled = PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_ENABLED, PropsValues.GLOBUS_OAUTH_ENABLED);
+		boolean globusOAuthAutoRedirect = PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_AUTO_REDIRECT, PropsValues.GLOBUS_OAUTH_AUTO_REDIRECT);
+		boolean globusOAuthShowLoginFields = PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_SHOW_LOGIN_FIELDS, PropsValues.GLOBUS_OAUTH_SHOW_LOGIN_FIELDS);
+
+		if(globusOAuthShowLoginFields){ %>
+		<aui:form action="<%= loginURL %>" autocomplete='<%= PropsValues.COMPANY_SECURITY_LOGIN_FORM_AUTOCOMPLETE ? "on" : "off" %>' method="post" name="fm" >
 			<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 
 			<c:choose>
@@ -140,16 +146,30 @@
 			following their instructions.  Once that is complete, you may use your new Globus Online username and password 
 			to use this application.
 			
-			<% if(PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_ENABLED,PropsValues.GLOBUS_OAUTH_ENABLED)){ %>
-			
-				<a href="<%= GlobusOAuthAutoLogin.getGlobusOAuthURL(request).getAuthorizationUrl(null)%>"> Globus OAuth</a>
-				
-			<% }%>
 			<aui:button-row>
 				<aui:button type="submit" value="sign-in" />
 			</aui:button-row>
 		</aui:form>
-
+		<%} %>
+		
+		<% if(globusOAuthEnabled){ %>
+			<center>
+			<p>Sign in with Globus</p>
+			<div style="width: 82px;background-color: #3560A0;padding: 5px;" >
+			<% if(globusOAuthAutoRedirect){ %>
+				<img src="https://www.globus.org/sites/all/themes/globus_bootstrap_theme/logo.png" alt="Sign In">
+				<script>
+					window.location = '<%= GlobusOAuthAutoLogin.getGlobusOAuthURL(request).getAuthorizationUrl(null)%>';
+				</script>
+			<% }else{%>
+				<a href="<%= GlobusOAuthAutoLogin.getGlobusOAuthURL(request).getAuthorizationUrl(null)%>" title="Sign In">
+            		<img src="https://www.globus.org/sites/all/themes/globus_bootstrap_theme/logo.png" alt="Sign In">
+          		</a>
+			<% }%>
+			</div>
+			</center>
+		<% } %>
+		
 <!-- 		<liferay-util:include page="/html/portlet/login/navigation.jsp" /> -->
 
 		<c:if test="<%= windowState.equals(WindowState.MAXIMIZED) %>">

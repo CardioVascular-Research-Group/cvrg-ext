@@ -1752,5 +1752,7 @@ public class PropsValues {
 	public static final boolean GLOBUS_OAUTH_ENABLED = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.GLOBUS_OAUTH_ENABLED));
 	public static final String GLOBUS_OAUTH_USER = PropsUtil.get(PropsKeys.GLOBUS_OAUTH_USER);
 	public static final String GLOBUS_OAUTH_PASSWORD = PropsUtil.get(PropsKeys.GLOBUS_OAUTH_PASSWORD);
+	public static final boolean GLOBUS_OAUTH_AUTO_REDIRECT = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.GLOBUS_OAUTH_AUTO_REDIRECT));
+	public static final boolean GLOBUS_OAUTH_SHOW_LOGIN_FIELDS = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.GLOBUS_OAUTH_SHOW_LOGIN_FIELDS));
 
 }

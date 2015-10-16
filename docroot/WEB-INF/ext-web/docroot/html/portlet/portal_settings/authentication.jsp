@@ -72,6 +72,10 @@ String globusOAuthUser = PrefsPropsUtil.getString(company.getCompanyId(), PropsK
 String globusOAuthPassword = PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_PASSWORD, PropsValues.GLOBUS_OAUTH_PASSWORD);
 boolean globusOAuthAutoRedirect = PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_AUTO_REDIRECT, PropsValues.GLOBUS_OAUTH_AUTO_REDIRECT);
 boolean globusOAuthShowLoginFields = PrefsPropsUtil.getBoolean(company.getCompanyId(), PropsKeys.GLOBUS_OAUTH_SHOW_LOGIN_FIELDS, PropsValues.GLOBUS_OAUTH_SHOW_LOGIN_FIELDS);
+
+if (Validator.isNotNull(globusOAuthPassword)) {
+	globusOAuthPassword = Portal.TEMP_OBFUSCATION_VALUE;
+}
 %>
 
 <liferay-ui:error-marker key="errorSection" value="authentication" />
@@ -226,9 +230,9 @@ boolean globusOAuthShowLoginFields = PrefsPropsUtil.getBoolean(company.getCompan
 		<aui:fieldset>
 			<aui:input label="enabled" name='<%= "settings--" + PropsKeys.GLOBUS_OAUTH_ENABLED + "--" %>' type="checkbox" value="<%= globusOAuthEnabled %>" />
 
-			<aui:input cssClass="lfr-input-text-container" label="globus-user" name='<%= "settings--" + PropsKeys.GLOBUS_OAUTH_USER + "--" %>' type="text" value="<%= globusOAuthUser %>" />
+			<aui:input cssClass="lfr-input-text-container" label="user-name" name='<%= "settings--" + PropsKeys.GLOBUS_OAUTH_USER + "--" %>' type="text" value="<%= globusOAuthUser %>" />
 			
-			<aui:input cssClass="lfr-input-text-container" label="globus-password" name='<%= "settings--" + PropsKeys.GLOBUS_OAUTH_PASSWORD + "--" %>' type="text" value="<%= globusOAuthPassword %>" />
+			<aui:input cssClass="lfr-input-text-container" label="password" name='<%= "settings--" + PropsKeys.GLOBUS_OAUTH_PASSWORD + "--" %>' type="password" value="<%= globusOAuthPassword %>" />
 			
 			<aui:input label="auto-redirect-to-globus" name='<%= "settings--" + PropsKeys.GLOBUS_OAUTH_AUTO_REDIRECT + "--" %>' type="checkbox" value="<%= globusOAuthAutoRedirect %>" />
 			

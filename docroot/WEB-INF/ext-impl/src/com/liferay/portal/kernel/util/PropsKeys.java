@@ -2343,9 +2343,6 @@ public interface PropsKeys {
 	public static final String GLOBUS_COMMUNITY = "globus.community";
 	public static final String GLOBUS_ACCOUNT_URL = "globus.account.url";
 
-	//CRJ 7/21/15 JHU
-	public static final String OPENTSDB_URL = "opentsdb.url";
-	
 	//AV 07/21/15 JHU
 	public static final String GLOBUS_OAUTH_ENABLED  = "globus.oauth.enabled";
 	public static final String GLOBUS_OAUTH_USER 	 = "globus.oauth.user";
@@ -2353,4 +2350,8 @@ public interface PropsKeys {
 	public static final String GLOBUS_OAUTH_AUTO_REDIRECT = "globus.oauth.auto.redirect";
 	public static final String GLOBUS_OAUTH_SHOW_LOGIN_FIELDS = "globus.oauth.show.login.field";
 
+	//AV 10/14/15 JHU
+	public static final String OPENTSDB_HOST = "opentsdb.host";
+	public static final String OPENTSDB_SSH_USER = "opentsdb.ssh.user";
+	public static final String OPENTSDB_SSH_PASSWORD = "opentsdb.ssh.password";
 }

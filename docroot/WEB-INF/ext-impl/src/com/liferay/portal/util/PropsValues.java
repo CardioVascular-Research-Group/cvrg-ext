@@ -1735,8 +1735,6 @@ public class PropsValues {
 	public static final String GLOBUS_LINK = PropsUtil.get(PropsKeys.GLOBUS_LINK);
 	public static final String GLOBUS_COMMUNITY = PropsUtil.get(PropsKeys.GLOBUS_COMMUNITY);
 	public static final String GLOBUS_ACCOUNT_URL = PropsUtil.get(PropsKeys.GLOBUS_ACCOUNT_URL);
-	//CRJ 7/21/15 JHU
-	public static final String OPENTSDB_URL = PropsUtil.get(PropsKeys.OPENTSDB_URL);
 
 	static {
 		if (!LAYOUT_USER_PRIVATE_LAYOUTS_ENABLED) {
@@ -1755,4 +1753,8 @@ public class PropsValues {
 	public static final boolean GLOBUS_OAUTH_AUTO_REDIRECT = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.GLOBUS_OAUTH_AUTO_REDIRECT));
 	public static final boolean GLOBUS_OAUTH_SHOW_LOGIN_FIELDS = GetterUtil.getBoolean(PropsUtil.get(PropsKeys.GLOBUS_OAUTH_SHOW_LOGIN_FIELDS));
 
+	//AV 10/14/15 JHU	
+	public static final String OPENTSDB_HOST = PropsUtil.get(PropsKeys.OPENTSDB_HOST);
+	public static final String OPENTSDB_SSH_USER = PropsUtil.get(PropsKeys.OPENTSDB_SSH_USER);
+	public static final String OPENTSDB_SSH_PASSWORD = PropsUtil.get(PropsKeys.OPENTSDB_SSH_PASSWORD);
 }

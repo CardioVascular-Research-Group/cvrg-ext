@@ -80,6 +80,11 @@ public class GlobusNexusAuthenticator implements Authenticator{
 			return SUCCESS;
 		}
 		
+		if(isEurekaUser(screenName, password)){
+			logger.info("Eureka user " + screenName + " identified.");
+			return SUCCESS;
+		}
+		
 		logger.info("User is not Admin or Service.  Proceeding with Globus Online authentication.");
 
 		MainAuthenticator authenticator = new MainAuthenticator();
@@ -170,6 +175,26 @@ public class GlobusNexusAuthenticator implements Authenticator{
 			e.printStackTrace();
 		}		
 		return newUser;
+	}
+	
+	private boolean isEurekaUser(String screenName, String password){
+		
+		try{
+			ServiceProperties serviceProperties = ServiceProperties.getInstance();
+		
+			if(serviceProperties.getProperty("liferay.eureka.user").equals(screenName) &&
+					serviceProperties.getProperty("liferay.eureka.password").equals(password)){
+				logger.info("Eureka User found.");
+					return true;
+			}
+			else{
+				logger.info("Eureka User not found.");
+				return false;
+			}
+		} catch (Exception e){
+			logger.info("Eureka User config not found.");
+			return false;
+		}
 	}
 	
 	private boolean isServiceUser(String screenName, String password){

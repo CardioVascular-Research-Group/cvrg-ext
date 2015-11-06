@@ -2354,4 +2354,7 @@ public interface PropsKeys {
 	public static final String OPENTSDB_HOST = "opentsdb.host";
 	public static final String OPENTSDB_SSH_USER = "opentsdb.ssh.user";
 	public static final String OPENTSDB_SSH_PASSWORD = "opentsdb.ssh.password";
+	
+	//AV 11/04/15 JHU
+	public static final String OPENTSDB_STRATEGY = "opentsdb.strategy";
 }

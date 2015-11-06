@@ -21,6 +21,8 @@ String openTsdbHost = 		PrefsPropsUtil.getString(company.getCompanyId(), PropsKe
 String openTsdbSshUser = 	PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.OPENTSDB_SSH_USER, 		PropsValues.OPENTSDB_SSH_USER);
 String openTsdbSshPassword =PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.OPENTSDB_SSH_PASSWORD, 	PropsValues.OPENTSDB_SSH_PASSWORD);
 
+String openTsdbStrategy =	PrefsPropsUtil.getString(company.getCompanyId(), PropsKeys.OPENTSDB_STRATEGY, 	PropsValues.OPENTSDB_STRATEGY);
+
 if (Validator.isNotNull(openTsdbSshPassword)) {
 	openTsdbSshPassword = Portal.TEMP_OBFUSCATION_VALUE;
 }
@@ -35,4 +37,11 @@ if (Validator.isNotNull(openTsdbSshPassword)) {
 	<aui:input cssClass="lfr-input-text-container" label="user-name" name='<%= "settings--" + PropsKeys.OPENTSDB_SSH_USER + "--" %>' type="text" value="<%= openTsdbSshUser %>" />
 
 	<aui:input cssClass="lfr-input-text-container" label="password" name='<%= "settings--" + PropsKeys.OPENTSDB_SSH_PASSWORD + "--" %>' type="password" value="<%= openTsdbSshPassword %>" />
+	
+	
+	<aui:select label="Strategy" name='<%= "settings--" + PropsKeys.OPENTSDB_STRATEGY + "--" %>'>
+		<aui:option selected='<%= "Portlet".equals(openTsdbStrategy) %>' label="Portlet" 	value="Portlet" />
+		<aui:option selected='<%= "WebService".equals(openTsdbStrategy) %>' label="WebService" 	value="WebService" />
+	</aui:select>
+	
 </aui:fieldset>

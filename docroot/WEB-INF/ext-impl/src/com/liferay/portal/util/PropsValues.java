@@ -1756,5 +1756,8 @@ public class PropsValues {
 	//AV 10/14/15 JHU	
 	public static final String OPENTSDB_HOST = PropsUtil.get(PropsKeys.OPENTSDB_HOST);
 	public static final String OPENTSDB_SSH_USER = PropsUtil.get(PropsKeys.OPENTSDB_SSH_USER);
-	public static final String OPENTSDB_SSH_PASSWORD = PropsUtil.get(PropsKeys.OPENTSDB_SSH_PASSWORD);
+	public static final String OPENTSDB_SSH_PASSWORD =  PropsUtil.get(PropsKeys.OPENTSDB_SSH_PASSWORD);
+	
+	//AV 11/04/15 JHU
+	public static final String OPENTSDB_STRATEGY = PropsUtil.get(PropsKeys.OPENTSDB_STRATEGY);
 }

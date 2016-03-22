@@ -44,7 +44,7 @@ public class GlobusOAuthAutoLogin implements AutoLogin{
 	
 	@Override
 	public String[] login(HttpServletRequest request, HttpServletResponse response) throws AutoLoginException {
-		
+		System.out.println("LOggin in with Globus OAuth auto login");
 		String oauthCode = ParamUtil.get(request, "code", "");
 		
 		long companyId = PortalUtil.getCompanyId(request);
@@ -52,11 +52,14 @@ public class GlobusOAuthAutoLogin implements AutoLogin{
 		try {
 			if(PrefsPropsUtil.getBoolean(companyId, PropsKeys.GLOBUS_OAUTH_ENABLED,PropsValues.GLOBUS_OAUTH_ENABLED) && oauthCode != null && !oauthCode.isEmpty()){
 				String redirectURL = GlobusOAuthAutoLogin.getSessionRedirectMap().get(request.getSession().getId());
+				
 				if(redirectURL != null && !redirectURL.isEmpty()){
+					System.out.println("Redirect URL is " + redirectURL);
 					redirectURL = redirectURL.split("\\|")[0];
 					GlobusOAuthAutoLogin.getSessionRedirectMap().remove(request.getSession().getId());
 					
 				}
+				else{System.out.println("Redirect URL is null");
 				
 				GlobusProvider provider = GlobusOAuthAutoLogin.getGlobusOAuthURL(request);
 				

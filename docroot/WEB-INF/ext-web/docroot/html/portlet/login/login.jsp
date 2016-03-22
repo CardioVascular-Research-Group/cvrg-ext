@@ -34,10 +34,13 @@
 
 		<%
 		String redirect = ParamUtil.getString(request, "redirect");
+		
+		System.out.println("Redirect is " + redirect);
 
 		GlobusOAuthAutoLogin.addRedirect(request.getSession().getId(), redirect);
 		
 		String login = LoginUtil.getLogin(request, "login", company);
+		System.out.println("Login is " + login);
 		String password = StringPool.BLANK;
 		boolean rememberMe = ParamUtil.getBoolean(request, "rememberMe");
 
